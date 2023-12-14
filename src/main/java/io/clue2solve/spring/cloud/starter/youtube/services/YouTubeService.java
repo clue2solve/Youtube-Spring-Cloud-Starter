@@ -3,8 +3,6 @@ package io.clue2solve.spring.cloud.starter.youtube.services;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,8 +26,9 @@ public class YouTubeService {
 
 	// Fetch video metadata
 	public Video getVideo(String videoId) throws IOException {
-		YouTube.Videos.List request = this.youtube.videos().list(Arrays.asList("snippet", "contentDetails"));
-		VideoListResponse response = request.setId(Collections.singletonList(videoId)).execute();
+		YouTube.Videos.List request = this.youtube.videos().list(Collections.singletonList("snippet"));
+		request.setId(Collections.singletonList(videoId));
+		VideoListResponse response = request.execute();
 		return response.getItems().get(0);
 	}
 
