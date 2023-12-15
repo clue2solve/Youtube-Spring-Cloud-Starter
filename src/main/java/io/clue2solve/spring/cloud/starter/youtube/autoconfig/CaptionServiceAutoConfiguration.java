@@ -9,11 +9,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 
 @Configuration
-public class YoutubeServiceAutoConfiguration {
+public class CaptionServiceAutoConfiguration {
 
+	// Other @Bean methods...
 	@Bean
-	public YouTubeService youTubeService(YouTube youTube) {
-		return new YouTubeService(youTube);
+	public CaptionService captionService(YouTube youTube, GoogleOAuthProperties googleOAuthProperties,
+			OAuth2AuthorizedClientService authorizedClentService) {
+		return new CaptionService(youTube, googleOAuthProperties, authorizedClentService);
 	}
 
 }

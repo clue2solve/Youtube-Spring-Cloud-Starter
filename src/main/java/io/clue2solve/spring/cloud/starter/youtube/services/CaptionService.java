@@ -23,6 +23,7 @@ import com.google.auth.oauth2.IdTokenProvider;
 import io.clue2solve.spring.cloud.starter.youtube.config.GoogleOAuthProperties;
 import org.slf4j.Logger;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -46,10 +47,14 @@ public class CaptionService {
 
 	private String clientSecret;
 
-	public CaptionService(YouTube youtube, GoogleOAuthProperties googleOAuthProperties) {
+	private final OAuth2AuthorizedClientService authorizedClientService;
+
+	public CaptionService(YouTube youtube, GoogleOAuthProperties googleOAuthProperties,
+			OAuth2AuthorizedClientService authorizedClientService) {
 		this.youtube = youtube;
 		this.clientId = googleOAuthProperties.clientId();
 		this.clientSecret = googleOAuthProperties.clientSecret();
+		this.authorizedClientService = authorizedClientService;
 		logger.info("Caption Service Constructor :: Client ID: " + googleOAuthProperties.clientId());
 		logger.info("Caption Service Constructor :: Client Secret: " + googleOAuthProperties.clientSecret());
 	}
@@ -85,9 +90,6 @@ public class CaptionService {
 
 		for (Caption caption : captions) {
 			logger.info("Caption: " + caption.toString());
-  			String captionLanguage = caption.getSnippet().getLanguage();
-			boolean isTrackDownloadable = caption.getSnippet().isTr;
-
 			YouTube.Captions.Download captionDownload = null;
 			try {
 				captionDownload = youtube.captions().download(caption.getId());
@@ -148,5 +150,7 @@ public class CaptionService {
 		return response.getAccessToken();
 
 	}
+
+
 
 }

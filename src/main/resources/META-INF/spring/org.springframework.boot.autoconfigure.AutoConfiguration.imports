@@ -1,3 +1,5 @@
 io.clue2solve.spring.cloud.starter.youtube.autoconfig.YouTubeClientFactoryAutoConfig
 io.clue2solve.spring.cloud.starter.youtube.autoconfig.YoutubeServiceAutoConfiguration
 io.clue2solve.spring.cloud.starter.youtube.autoconfig.GoogleAuthAutoConfiguration
+io.clue2solve.spring.cloud.starter.youtube.autoconfig.OAuth2Config
+io.clue2solve.spring.cloud.starter.youtube.autoconfig.CaptionServiceAutoConfiguration

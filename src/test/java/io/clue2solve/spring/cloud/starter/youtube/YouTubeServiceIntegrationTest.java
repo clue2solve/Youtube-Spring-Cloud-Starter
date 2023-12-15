@@ -28,8 +28,8 @@ public class YouTubeServiceIntegrationTest {
 	@Autowired
 	private YouTubeService youTubeService;
 
-	@Autowired
-	private CaptionService captionService;
+	// @Autowired
+	// private CaptionService captionService;
 
 	@Test
 	public void getVideoTest() throws Exception {
@@ -90,5 +90,7 @@ public class YouTubeServiceIntegrationTest {
 	// NEed to figure out how to test this with a real Token
 	public void downloadCaptionTest() throws Exception {
 	}
+
+
 
 }
