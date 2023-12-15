@@ -86,7 +86,6 @@ public class CaptionService {
 		for (Caption caption : captions) {
 			logger.info("Caption: " + caption.toString());
 			String captionLanguage = caption.getSnippet().getLanguage();
-			boolean isTrackDownloadable = caption.getSnippet().isTr;
 
 			YouTube.Captions.Download captionDownload = null;
 			try {
@@ -125,13 +124,13 @@ public class CaptionService {
 		GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(transport, jsonFactory,
 				clientSecrets, Arrays.asList("https://www.googleapis.com/auth/youtube",
 						"https://www.googleapis.com/auth/youtube.force-ssl"))
+			.setAccessType("offline")
 			.build();
 
 		// Exchange the authorization code for an access token
 		GoogleTokenResponse response = null;
 		try {
 			response = flow.newTokenRequest(authCode).setRedirectUri("http://localhost:3000").execute();
-
 		}
 		catch (TokenResponseException e) {
 			logger.error("Error getting access token: " + e.getDetails() + " " + e.getMessage());
@@ -143,7 +142,8 @@ public class CaptionService {
 							// access token
 		}
 
-		logger.info("Access Token Response: " + response.toString());
+		logger.info("Access Token Response: " + response.getAccessToken());
+		logger.info("Refresh Token Response: " + response.getRefreshToken());
 
 		// Return the access token
 		return response.getAccessToken();
