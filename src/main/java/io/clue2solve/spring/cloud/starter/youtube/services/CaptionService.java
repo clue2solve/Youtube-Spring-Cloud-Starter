@@ -85,7 +85,7 @@ public class CaptionService {
 
 		for (Caption caption : captions) {
 			logger.info("Caption: " + caption.toString());
-  			String captionLanguage = caption.getSnippet().getLanguage();
+			String captionLanguage = caption.getSnippet().getLanguage();
 			boolean isTrackDownloadable = caption.getSnippet().isTr;
 
 			YouTube.Captions.Download captionDownload = null;
@@ -131,6 +131,7 @@ public class CaptionService {
 		GoogleTokenResponse response = null;
 		try {
 			response = flow.newTokenRequest(authCode).setRedirectUri("http://localhost:3000").execute();
+
 		}
 		catch (TokenResponseException e) {
 			logger.error("Error getting access token: " + e.getDetails() + " " + e.getMessage());
